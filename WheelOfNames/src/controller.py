@@ -8,7 +8,7 @@ class Controller:
         self.screen = pygame.display.set_mode()
         self.background_width, self.backgroud_height = self.screen.get_size()
         self.font_size = 30
-        self.custom_font = pygame.font.Font('assets/font.tff', self.font_size)
+        self.custom_font = pygame.font.Font('WheelOfNames/assets/font.ttf', self.font_size)
            
     def mainloop(self):
         running = True
@@ -29,7 +29,7 @@ class Controller:
     def menuLoop(self):
         
         font = pygame.font.Font(None, 36) 
-        input_text = "Hello, Pygame!"
+        input_text = ""
         texty = 0
         self.screen.fill("black")
         
