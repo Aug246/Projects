@@ -87,9 +87,6 @@ class Controller:
                 self.slice.slice_num = len(self.input_text_list)
             elif text_num <= 1:
                 self.slice.slice_num = 1
-     
-            
-
             
             text_surface = self.custom_font.render(input_text, True, "white")
             pygame.draw.rect(self.screen, self.textbox_color,(self.textx - 10 , self.texty - 10 , self.text_box.w, self.text_box.h))
@@ -100,7 +97,6 @@ class Controller:
             
             play_button = pygame.draw.circle(self.screen, "white", (self.slice.center_x, self.slice.center_y), self.backgroud_height/14, int(self.backgroud_height/100))
             pygame.display.flip()
-
     
     def spinLoop(self):
         self.time = 0
