@@ -42,8 +42,6 @@ class Controller:
         
         input_text = ''
         
-        
-        
         while self.state == "MENU":
             text_num = len(self.input_text_list)
             for event in pygame.event.get():
@@ -75,7 +73,6 @@ class Controller:
                 elif event.type == pygame.MOUSEBUTTONDOWN:
                     if text_num > 0:
                         if play_button.collidepoint(event.pos):
-                            print("lol")
                             self.state = "GAME"
                         else:
                             pass
@@ -121,7 +118,7 @@ class Controller:
             self.slice.createSlices()
             
             if angle_shift <= 0:
-                self.state = "MENU"
+                self.state = "END"
             
             pygame.display.flip()
             clock.tick(60) 
@@ -129,4 +126,21 @@ class Controller:
 
         
     def endLoop(self):
-        pass
+        
+        while self.state == "END":
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                        pygame.quit()
+                        exit()
+                        
+            angle_change = self.slice.angle_degree % 360
+            x = angle_change/self.slice.slice_num
+            y = 0
+            
+            for i in range(self.slice.slice_num):
+                y += x
+                if y > 270:
+                    print(self.input_text_list[i])
+                    self.state = "MENU"
+
+        

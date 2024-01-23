@@ -10,7 +10,7 @@ class Slice:
         self.center_x = center_x
         self.center_y = center_y
         self.color = (90, 92, 90)
-        self.angle_degree = 45
+        self.angle_degree = 0
 
         self.background_width = self.surface.get_size()[0]
         self.radius = self.background_width/4
