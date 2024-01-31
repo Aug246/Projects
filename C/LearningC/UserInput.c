@@ -1,17 +1,21 @@
 //Learning how to take in user in put from the terminal
 
 #include <stdio.h>
+#include <string.h>
 
 int main() {
 
     int age;
-    char name;
+    char name[100];
+    
 
     printf("Hey User! What is your name? ");
-    scanf("%c", &name);
-    printf("\nHi %c! How old are you? ", name);
+    fgets(name, sizeof(name), stdin);
+    name[strcspn(name, "\n")] = '\0';
+
+    printf("Hi %s! How old are you? ", name);
     scanf("%d", &age);
-    printf("Wow %c you're %d years old! That's bonkers man.", name, age);
+    printf("Wow %s you're %d years old! That's bonkers man.", name, age);
 
 
     return 0;
