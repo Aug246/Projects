@@ -41,4 +41,5 @@ class Slice:
             
             pygame.draw.polygon(self.surface, self.color, points)
             
+            
         

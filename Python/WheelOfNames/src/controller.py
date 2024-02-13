@@ -38,6 +38,7 @@ class Controller:
                     self.spinLoop()
                 elif self.state =="END":
                     self.endLoop()
+                    
     def menuLoop(self):
         
         input_text = ''
@@ -96,11 +97,13 @@ class Controller:
             pygame.draw.circle(self.screen, (207, 204, 205), (self.slice.center_x, self.slice.center_y), self.backgroud_height/14)
             
             play_button = pygame.draw.circle(self.screen, "white", (self.slice.center_x, self.slice.center_y), self.backgroud_height/14, int(self.backgroud_height/100))
+            pygame.draw.rect(self.screen, "White", (self.slice.center_x - self.background_width/100, self.slice.center_y - self.backgroud_height/2.3, self.background_width/50, self.backgroud_height/10))
             pygame.display.flip()
     
     def spinLoop(self):
         self.time = 0
         clock = pygame.time.Clock()
+        self.initial_angle = self.slice.angle_degree
         while self.state == "GAME":
             spin = Spinning(self.slice.angle_degree)
             for event in pygame.event.get():
@@ -128,15 +131,22 @@ class Controller:
                 if event.type == pygame.QUIT:
                         pygame.quit()
                         exit()
-                        
+            #uses the total degrees changed and % by 360 to find how far from the 0 degree it has moved           
             angle_change = self.slice.angle_degree % 360
-            x = angle_change/self.slice.slice_num
-            y = 0
+            #source angle means how far back the origin has moved
+            source_angle = angle_change - 360
+            slice_angle = 360 / self.slice.slice_num
             
-            for i in range(self.slice.slice_num):
-                y += x
-                if y > 270:
-                    print(self.input_text_list[i])
-                    self.state = "MENU"
+            #adds whatever the angle a slice takes everytime the for loop runs until it is bigger than 270 which is the slice that is selected
+            condition_met = False
+            while not condition_met:
+                for i in range(self.slice.slice_num):
+                    source_angle += slice_angle
+                    if source_angle >= 270:
+                        print(self.input_text_list[i])
+                        self.state = "MENU"
+                        condition_met = True
+                        break
+
 
         
