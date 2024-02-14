@@ -5,7 +5,8 @@ class Spinning:
         self.time = 0 
         
     def spin(self):
-        self.init_angle = (-1 * ((self.time-3.16)**2)) +10
+        self.init_angle = (-1 * ((self.time-4.47)**2)) + 20
+        self.time += 1/60
         
         
         return self.init_angle

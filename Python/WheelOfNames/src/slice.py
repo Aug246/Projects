@@ -40,6 +40,7 @@ class Slice:
                 angle_degree += 0.03125
             
             pygame.draw.polygon(self.surface, self.color, points)
+
             
             
         

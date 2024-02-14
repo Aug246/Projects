@@ -2,6 +2,7 @@ import pygame
 import random
 from src.slice import Slice
 from src.spinning import Spinning
+from src.text import Text
 
 class Controller:
     def __init__(self):
@@ -90,30 +91,43 @@ class Controller:
                 self.slice.slice_num = 1
             
             text_surface = self.custom_font.render(input_text, True, "white")
+
             pygame.draw.rect(self.screen, self.textbox_color,(self.textx - 10 , self.texty - 10 , self.text_box.w, self.text_box.h))
             self.screen.blit(text_surface, (self.textx,self.texty))
             
             self.slice.createSlices()
+
             pygame.draw.circle(self.screen, (207, 204, 205), (self.slice.center_x, self.slice.center_y), self.backgroud_height/14)
             
             play_button = pygame.draw.circle(self.screen, "white", (self.slice.center_x, self.slice.center_y), self.backgroud_height/14, int(self.backgroud_height/100))
-            pygame.draw.rect(self.screen, "White", (self.slice.center_x - self.background_width/100, self.slice.center_y - self.backgroud_height/2.3, self.background_width/50, self.backgroud_height/10))
+            pygame.draw.rect(self.screen, "White", (self.slice.center_x - self.background_width/100, self.slice.center_y - self.backgroud_height/2.1, self.background_width/50, self.backgroud_height/10))
+            
+            
+            self.wheel_text = Text(self.screen, self.input_text_list, self.slice.angle_degree, self.slice.radius, self.slice.center_x, self.slice.center_y, 360/self.slice.slice_num)
+            self.wheel_text.displayText()
             pygame.display.flip()
+            
+            
+            
+            
+            
     
     def spinLoop(self):
-        self.time = 0
         clock = pygame.time.Clock()
-        self.initial_angle = self.slice.angle_degree
+        spin = Spinning(self.slice.angle_degree)
+        
+        for i in range(len(self.input_text_list)):
+            print(type(i))
+
         while self.state == "GAME":
-            spin = Spinning(self.slice.angle_degree)
+            
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         pygame.quit()
                         exit()
                         
-            angle_shift = (-1 * ((self.time-4.47)**2)) + 20
+            angle_shift = spin.spin()
             self.slice.angle_degree += angle_shift
-            self.time += 1/60
             self.slice.createSlices()
             
             if angle_shift <= 0:
@@ -133,6 +147,7 @@ class Controller:
                         exit()
             #uses the total degrees changed and % by 360 to find how far from the 0 degree it has moved           
             angle_change = self.slice.angle_degree % 360
+            
             #source angle means how far back the origin has moved
             source_angle = angle_change - 360
             slice_angle = 360 / self.slice.slice_num
