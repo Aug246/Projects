@@ -150,7 +150,8 @@ class Controller:
 
         
     def endLoop(self):
-        
+        clock = pygame.time.Clock()
+        choice_boxwidth, choice_boxheight = 0, 0 
         while self.state == "END":
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -177,6 +178,13 @@ class Controller:
             transparent_surface = pygame.Surface((self.background_width, self.backgroud_height), pygame.SRCALPHA)
             transparent_surface.fill((0, 0, 0, 128))
             self.screen.blit(transparent_surface, (0, 0))
+            
+            while choice_boxwidth < self.background_width/3:
+                choice_boxwidth += 50
+                choice_boxheight += 30
+                pygame.draw.rect(self.screen, "White", (self.background_width/3 ,self.backgroud_height/4, choice_boxwidth, choice_boxheight))
+                pygame.display.flip()
+                clock.tick(60) 
 
             pygame.display.flip()
             pygame.time.wait(2000)
