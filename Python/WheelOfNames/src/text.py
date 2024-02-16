@@ -16,9 +16,20 @@ class Text:
         self.font_size = 30
         self.custom_font = pygame.font.Font('assets/font.ttf', self.font_size)
         
+
+        
+        
     def displayText(self):
+        
+        def rotateText(text, x, y, angle):
+            text_surface = self.custom_font.render(text, True, "white")
+            rotated_surface = pygame.transform.rotate(text_surface, angle)
+            rotated_rect = rotated_surface.get_rect()
+            rotated_rect.center = (x, y)
+            self.surface.blit(rotated_surface, rotated_rect)
 
         text_coord = []
+        
         for i in range(len(self.text_list)):
 
                 
@@ -29,8 +40,12 @@ class Text:
                 
                 text_coord.append((x_point, y_point))
                 
-                text_surface = self.custom_font.render(self.text_list[i], True, "white")
-                self.surface.blit(text_surface, (x_point,y_point))
+                text_rotangle = self.angle_shift % 360
+                
+                rotateText(self.text_list[i], x_point, y_point, self.angle_shift + (self.text_spacing/2))
+                print(self.angle_shift)
+                # text_surface = self.custom_font.render(self.text_list[i], True, "white")
+                # self.surface.blit(text_surface, (x_point,y_point))
                 
                 self.angle_shift += self.text_spacing
                 
