@@ -24,7 +24,7 @@ class Controller:
            
     def mainloop(self):
         running = True
-        self.text_box = pygame.draw.rect(self.screen, self.textbox_color, ((4 * self.background_width)/5 -10 , self.backgroud_height/3 - 10, self.background_width/5, (4*self.backgroud_height)/9))
+        #self.text_box = pygame.draw.rect(self.screen, self.textbox_color, ((4 * self.background_width)/5 -10 , self.backgroud_height/3 - 10, self.background_width/5, (4*self.backgroud_height)/9))
         while running:
             
             for event in pygame.event.get():
@@ -41,8 +41,20 @@ class Controller:
                     self.endLoop()
                     
     def menuLoop(self):
-        
+        self.screen.fill(self.background_color)
+        self.text_box = pygame.draw.rect(self.screen, self.textbox_color, ((4 * self.background_width)/5 -10 , self.backgroud_height/3 - 10, self.background_width/5, (4*self.backgroud_height)/9))
+        self.textx , self.texty = (4 * self.background_width)/5, self.backgroud_height/3
         input_text = ''
+        
+        for i in range(len(self.input_text_list)):
+            if len(self.input_text_list)  == 0 :
+                break
+
+            text_surface = self.custom_font.render(self.input_text_list[i], True, "white")
+            self.screen.blit(text_surface, (self.textx,self.texty))
+            self.texty += self.backgroud_height/25 
+            self.text_box.h -= self.backgroud_height/25
+
         
         while self.state == "MENU":
             text_num = len(self.input_text_list)
@@ -115,9 +127,6 @@ class Controller:
     def spinLoop(self):
         clock = pygame.time.Clock()
         spin = Spinning(self.slice.angle_degree)
-        
-        for i in range(len(self.input_text_list)):
-            print(type(i))
 
         while self.state == "GAME":
             
@@ -128,7 +137,9 @@ class Controller:
                         
             angle_shift = spin.spin()
             self.slice.angle_degree += angle_shift
+            self.wheel_text.angle_shift = self.slice.angle_degree
             self.slice.createSlices()
+            self.wheel_text.displayText()
             
             if angle_shift <= 0:
                 self.state = "END"
@@ -162,6 +173,13 @@ class Controller:
                         self.state = "MENU"
                         condition_met = True
                         break
+                    
+            transparent_surface = pygame.Surface((self.background_width, self.backgroud_height), pygame.SRCALPHA)
+            transparent_surface.fill((0, 0, 0, 128))
+            self.screen.blit(transparent_surface, (0, 0))
+
+            pygame.display.flip()
+            pygame.time.wait(2000)
 
 
         
