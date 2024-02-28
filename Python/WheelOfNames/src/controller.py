@@ -171,6 +171,7 @@ class Controller:
                     source_angle += slice_angle
                     if source_angle >= 270:
                         print(self.input_text_list[i])
+                        decision = self.input_text_list[i]
                         self.state = "MENU"
                         condition_met = True
                         break
@@ -179,12 +180,14 @@ class Controller:
             transparent_surface.fill((0, 0, 0, 128))
             self.screen.blit(transparent_surface, (0, 0))
             
-            while choice_boxwidth < self.background_width/3:
-                choice_boxwidth += 50
-                choice_boxheight += 30
-                pygame.draw.rect(self.screen, "White", (self.background_width/3 ,self.backgroud_height/4, choice_boxwidth, choice_boxheight))
+            while choice_boxwidth < self.background_width/2:
+                choice_boxwidth += self.background_width/10
+                choice_boxheight += self.backgroud_height/10
+                decision_box = pygame.draw.rect(self.screen, (73, 96, 135), (self.background_width/4 ,self.backgroud_height/4, choice_boxwidth, choice_boxheight))
                 pygame.display.flip()
                 clock.tick(60) 
+            #i left off here, you gotta make the button to exit the box that displays the decision the wheel made and also make it display it and go back to main menu 
+            exit_box = pygame.draw.rect()
 
             pygame.display.flip()
             pygame.time.wait(2000)
