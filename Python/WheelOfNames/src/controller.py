@@ -117,12 +117,7 @@ class Controller:
             
             self.wheel_text = Text(self.screen, self.input_text_list, self.slice.angle_degree, self.slice.radius, self.slice.center_x, self.slice.center_y, 360/self.slice.slice_num)
             self.wheel_text.displayText()
-            pygame.display.flip()
-            
-            
-            
-            
-            
+            pygame.display.flip()      
     
     def spinLoop(self):
         clock = pygame.time.Clock()
@@ -143,20 +138,28 @@ class Controller:
             
             if angle_shift <= 0:
                 self.state = "END"
+                
+            pygame.draw.circle(self.screen, (207, 204, 205), (self.slice.center_x, self.slice.center_y), self.backgroud_height/14)
+            
+            play_button = pygame.draw.circle(self.screen, "white", (self.slice.center_x, self.slice.center_y), self.backgroud_height/14, int(self.backgroud_height/100))
+            pygame.draw.rect(self.screen, "White", (self.slice.center_x - self.background_width/100, self.slice.center_y - self.backgroud_height/2.1, self.background_width/50, self.backgroud_height/10))
             
             pygame.display.flip()
             clock.tick(60) 
 
-
-        
     def endLoop(self):
         clock = pygame.time.Clock()
         choice_boxwidth, choice_boxheight = 0, 0 
+        condition_met = False
         while self.state == "END":
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                         pygame.quit()
                         exit()
+                elif event.type == pygame.MOUSEBUTTONDOWN:
+                    if exit_box.collidepoint(event.pos):
+                            self.state = "MENU"
+                            
             #uses the total degrees changed and % by 360 to find how far from the 0 degree it has moved           
             angle_change = self.slice.angle_degree % 360
             
@@ -165,32 +168,33 @@ class Controller:
             slice_angle = 360 / self.slice.slice_num
             
             #adds whatever the angle a slice takes everytime the for loop runs until it is bigger than 270 which is the slice that is selected
-            condition_met = False
+            
             while not condition_met:
+                
+                transparent_surface = pygame.Surface((self.background_width, self.backgroud_height), pygame.SRCALPHA)
+                transparent_surface.fill((0, 0, 0, 128))
+                self.screen.blit(transparent_surface, (0, 0))
+                
                 for i in range(self.slice.slice_num):
                     source_angle += slice_angle
                     if source_angle >= 270:
                         print(self.input_text_list[i])
                         decision = self.input_text_list[i]
-                        self.state = "MENU"
                         condition_met = True
                         break
-                    
-            transparent_surface = pygame.Surface((self.background_width, self.backgroud_height), pygame.SRCALPHA)
-            transparent_surface.fill((0, 0, 0, 128))
-            self.screen.blit(transparent_surface, (0, 0))
+                      
+
             
             while choice_boxwidth < self.background_width/2:
                 choice_boxwidth += self.background_width/10
-                choice_boxheight += self.backgroud_height/10
+                choice_boxheight += self.backgroud_height/12
                 decision_box = pygame.draw.rect(self.screen, (73, 96, 135), (self.background_width/4 ,self.backgroud_height/4, choice_boxwidth, choice_boxheight))
                 pygame.display.flip()
                 clock.tick(60) 
+                
             #i left off here, you gotta make the button to exit the box that displays the decision the wheel made and also make it display it and go back to main menu 
-            exit_box = pygame.draw.rect()
-
+            exit_box = pygame.draw.rect(self.screen, (100, 122, 161), (decision_box.x + decision_box.w * 0.9, decision_box.y + decision_box.h * 0.01, decision_box.w * 0.095, decision_box.h * 0.09))
+            decision_text = self.custom_font.render(decision, True, "white")
+            self.screen.blit(decision_text, (decision_box.x + decision_box.w * 0.3 ,decision_box.y + decision_box.w * 0.3))
             pygame.display.flip()
-            pygame.time.wait(2000)
 
-
-        
