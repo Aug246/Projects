@@ -13,8 +13,8 @@ class Text:
         self.centery = centery
         self.text_spacing = slice_angle
         
-        self.font_size = 30
-        self.custom_font = pygame.font.Font('assets/font.ttf', self.font_size)
+        self.font_size = 40
+        self.custom_font = pygame.font.Font(None, self.font_size)
         
     def displayText(self):
         

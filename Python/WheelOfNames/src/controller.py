@@ -15,8 +15,8 @@ class Controller:
         
         self.textbox_color = (73, 96, 135)
         
-        self.font_size = 30
-        self.custom_font = pygame.font.Font('assets/font.ttf', self.font_size)
+        self.font_size = 40
+        self.custom_font = pygame.font.Font(None, self.font_size)
         
         self.slice = Slice(self.screen, self.background_width/2, self.backgroud_height/2)
         self.input_text_list = []
@@ -192,9 +192,9 @@ class Controller:
                 pygame.display.flip()
                 clock.tick(60) 
                 
-            #i left off here, you gotta make the button to exit the box that displays the decision the wheel made and also make it display it and go back to main menu 
             exit_box = pygame.draw.rect(self.screen, (100, 122, 161), (decision_box.x + decision_box.w * 0.9, decision_box.y + decision_box.h * 0.01, decision_box.w * 0.095, decision_box.h * 0.09))
-            decision_text = self.custom_font.render(decision, True, "white")
-            self.screen.blit(decision_text, (decision_box.x + decision_box.w * 0.3 ,decision_box.y + decision_box.w * 0.3))
+            decision_textfont = pygame.font.Font(None, 100)
+            decision_text = decision_textfont.render(decision, True, "white")
+            self.screen.blit(decision_text, (decision_box.x + decision_box.w * 0.2 ,decision_box.y + decision_box.h * 0.4))
             pygame.display.flip()
 
