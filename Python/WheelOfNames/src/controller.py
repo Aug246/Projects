@@ -151,6 +151,7 @@ class Controller:
         clock = pygame.time.Clock()
         choice_boxwidth, choice_boxheight = 0, 0 
         condition_met = False
+        confetti_fall = True
         while self.state == "END":
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -192,9 +193,21 @@ class Controller:
                 pygame.display.flip()
                 clock.tick(60) 
                 
-            exit_box = pygame.draw.rect(self.screen, (100, 122, 161), (decision_box.x + decision_box.w * 0.9, decision_box.y + decision_box.h * 0.01, decision_box.w * 0.095, decision_box.h * 0.09))
+            pygame.draw.rect(self.screen, (65, 79, 105), (decision_box.x, decision_box.y, decision_box.w, decision_box.h/9.8))   
+            
+            exit_box = pygame.draw.rect(self.screen, (100, 122, 161), (decision_box.x + decision_box.w * 0.95, decision_box.y + decision_box.h * 0.01, decision_box.h * 0.09, decision_box.h * 0.09))
+            exit_box_bottomrightx, exit_box_bottomrighty = exit_box.bottomright
+            pygame.draw.line(self.screen, "White", (exit_box.x + exit_box.w/6, exit_box.y + exit_box.h/6), (exit_box_bottomrightx - exit_box.w/6, exit_box_bottomrighty - exit_box.h/6), 5)
+            pygame.draw.line(self.screen, "White", (exit_box.x + exit_box.w/6, exit_box.y + (5 * exit_box.h)/6), (exit_box.x + (5 * exit_box.w)/6, exit_box.y + exit_box.h/6), 5)
+            
             decision_textfont = pygame.font.Font(None, 100)
             decision_text = decision_textfont.render(decision, True, "white")
-            self.screen.blit(decision_text, (decision_box.x + decision_box.w * 0.2 ,decision_box.y + decision_box.h * 0.4))
+            decision_text_width = decision_text.get_width()
+            decision_text_height = decision_text.get_height()
+            
+            self.screen.blit(decision_text, (decision_box.centerx - decision_text_width/2 , decision_box.centery - decision_text_height/2))
+
+                
+            
             pygame.display.flip()
 
