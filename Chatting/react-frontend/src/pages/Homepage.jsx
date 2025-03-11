@@ -8,6 +8,7 @@ function App() {
     
     fetch("https://0a79-47-22-173-162.ngrok-free.app/login/health_check/", {
       method: "GET", // Ensure credentials are sent with the request
+      credentials: "include",
     })
     .then(response => {
       if (!response.ok) {
