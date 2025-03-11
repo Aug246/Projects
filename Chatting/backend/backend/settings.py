@@ -25,8 +25,9 @@ SECRET_KEY = 'django-insecure-i3&*#twbxuotp5*#dn+gs$dbgodfm7u10%(i1l32q07g2mpgjk
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
-
+ALLOWED_HOSTS = [
+    'projects-six-taupe.vercel.app',
+]
 
 # Application definition
 
@@ -52,14 +53,16 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
+
+CORS_ALLOWED_ORIGINS = [
+    "https://projects-six-taupe.vercel.app",
+]
 
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:5500",
-    "http://127.0.0.1:5173",
-    "http://localhost:5173",
+    "https://projects-six-taupe.vercel.app",
 ]
 
 CSRF_COOKIE_NAME = 'csrftoken'
@@ -68,7 +71,7 @@ CSRF_COOKIE_SAMESITE = 'None'
 
 CSRF_COOKIE_HTTPONLY = False
 
-CSRF_COOKIE_SECURE = False
+CSRF_COOKIE_SECURE = True;
 
 CSRF_USE_SESSIONS = False
 
