@@ -10,17 +10,34 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
+import environ
+import dj_database_url
+import os
 from pathlib import Path
+
+
+# Initialize environ
+env = environ.Env()
+environ.Env.read_env()
+
+SECRET_KEY = env('DJANGO_SECRET_KEY')
+
+DEBUG = env.bool('DEBUG', default=False)
+
+DATABASES = {
+    'default': dj_database_url.parse(env('DATABASE_URL'))
+}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
+ALLOWED_HOSTS = ['your-backend-domain.render.com', 'projects-six-taupe.vercel.app']
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-i3&*#twbxuotp5*#dn+gs$dbgodfm7u10%(i1l32q07g2mpgjk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -52,24 +69,20 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = False
 
-CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOWED_ORIGINS = [
+    "https://projects-six-taupe.vercel.app",
+]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://127.0.0.1:5500",
-    "http://127.0.0.1:5173",
-    "http://localhost:5173",
+    "https://projects-six-taupe.vercel.app",
 ]
 
 CSRF_COOKIE_NAME = 'csrftoken'
-
-CSRF_COOKIE_SAMESITE = 'None'  
-
+CSRF_COOKIE_SAMESITE = 'None'
 CSRF_COOKIE_HTTPONLY = False
-
-CSRF_COOKIE_SECURE = False
-
+CSRF_COOKIE_SECURE = True
 CSRF_USE_SESSIONS = False
 
 ROOT_URLCONF = 'backend.urls'
@@ -95,17 +108,6 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
-
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'messagingdb',
-        'USER': 'sograde',
-        'PASSWORD': '12345678',
-        
-    }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
