@@ -28,7 +28,8 @@ DEBUG = True
 ALLOWED_HOSTS = [
     'projects-six-taupe.vercel.app',
     "https://projects-aug246s-projects.vercel.app",
-    "a3a6-47-23-164-34.ngrok-free.app"
+    "projects-git-main-aug246s-projects.vercel.app",
+    "0a79-47-22-173-162.ngrok-free.app"
 ]
 
 # Application definition
@@ -64,7 +65,8 @@ CORS_ALLOW_ALL_ORIGINS = False
 CORS_ALLOWED_ORIGINS = [
     "https://projects-six-taupe.vercel.app",
     "https://projects-aug246s-projects.vercel.app",
-    "https://a3a6-47-23-164-34.ngrok-free.app",
+    "https://projects-git-main-aug246s-projects.vercel.app",
+    "https://0a79-47-22-173-162.ngrok-free.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
@@ -72,7 +74,8 @@ CORS_ALLOW_CREDENTIALS = True
 CSRF_TRUSTED_ORIGINS = [
     "https://projects-six-taupe.vercel.app",
     "https://projects-aug246s-projects.vercel.app",
-    "https://a3a6-47-23-164-34.ngrok-free.app",
+    "https://projects-git-main-aug246s-projects.vercel.app",
+    "https://0a79-47-22-173-162.ngrok-free.app",
 ]
 
 CSRF_COOKIE_NAME = 'csrftoken'
