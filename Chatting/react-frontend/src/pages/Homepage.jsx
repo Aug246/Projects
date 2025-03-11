@@ -4,7 +4,7 @@ import LoginField from '../components/LoginField';
 
 function App() {
   useEffect(() => {
-    console.log("Initializing CSRF token...");
+    console.log("Initializing CSRF token....");
     
     fetch("https://e0ab-47-22-173-162.ngrok-free.app/login/health_check/", {
       method: "GET",
