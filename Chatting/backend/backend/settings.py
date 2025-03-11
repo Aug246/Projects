@@ -27,6 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'projects-six-taupe.vercel.app',
+    "a3a6-47-23-164-34.ngrok-free.app"
 ]
 
 # Application definition
@@ -61,12 +62,14 @@ CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
     "https://projects-six-taupe.vercel.app",
+    "https://a3a6-47-23-164-34.ngrok-free.app",
 ]
 
 CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
     "https://projects-six-taupe.vercel.app",
+    "https://a3a6-47-23-164-34.ngrok-free.app",
 ]
 
 CSRF_COOKIE_NAME = 'csrftoken'
