@@ -6,7 +6,7 @@ function App() {
   useEffect(() => {
     console.log("Initializing CSRF token.....");
     
-    fetch("https://e0ab-47-22-173-162.ngrok-free.app/login/health_check/", {
+    fetch("https://59c4-47-22-173-162.ngrok-free.app/login/health_check/", {
       method: "GET",
       credentials: "include", // Ensure credentials are sent with the request
     })
