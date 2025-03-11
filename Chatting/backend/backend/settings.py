@@ -10,36 +10,22 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/5.1/ref/settings/
 """
 
-import environ
-import dj_database_url
-import os
 from pathlib import Path
-
-
-# Initialize environ
-env = environ.Env()
-environ.Env.read_env()
-
-SECRET_KEY = env('DJANGO_SECRET_KEY')
-
-DEBUG = env.bool('DEBUG', default=False)
-
-DATABASES = {
-    'default': dj_database_url.parse(env('DATABASE_URL'))
-}
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
-
-ALLOWED_HOSTS = ['your-backend-domain.render.com', 'projects-six-taupe.vercel.app']
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = 'django-insecure-i3&*#twbxuotp5*#dn+gs$dbgodfm7u10%(i1l32q07g2mpgjk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -66,19 +52,24 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-CORS_ALLOW_ALL_ORIGINS = False
-CORS_ALLOWED_ORIGINS = [
-    "https://projects-six-taupe.vercel.app",
-]
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_CREDENTIALS = True
 
 CSRF_TRUSTED_ORIGINS = [
-    "https://projects-six-taupe.vercel.app",
+    "http://127.0.0.1:5500",
+    "http://127.0.0.1:5173",
+    "http://localhost:5173",
 ]
 
 CSRF_COOKIE_NAME = 'csrftoken'
-CSRF_COOKIE_SAMESITE = 'None'
+
+CSRF_COOKIE_SAMESITE = 'None'  
+
 CSRF_COOKIE_HTTPONLY = False
-CSRF_COOKIE_SECURE = True
+
+CSRF_COOKIE_SECURE = False
+
 CSRF_USE_SESSIONS = False
 
 ROOT_URLCONF = 'backend.urls'
@@ -104,6 +95,17 @@ WSGI_APPLICATION = 'backend.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'messagingdb',
+        'USER': 'sograde',
+        'PASSWORD': '12345678',
+        
+    }
+}
+
 
 # Password validation
 # https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
@@ -140,30 +142,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.1/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-
-MEDIA_URL = '/media/'
-MEDIA_ROOT = BASE_DIR / 'media'
-
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False,
-    'handlers': {
-        'console': {
-            'level': 'DEBUG',
-            'class': 'logging.StreamHandler',
-        },
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
-
-
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
