@@ -26,10 +26,14 @@ SECRET_KEY = 'django-insecure-i3&*#twbxuotp5*#dn+gs$dbgodfm7u10%(i1l32q07g2mpgjk
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'projects-six-taupe.vercel.app',
-    "https://projects-aug246s-projects.vercel.app",
+    "localhost",
+    "127.0.0.1",
+    "projects-six-taupe.vercel.app",
+    "projects-aug246s-projects.vercel.app",
     "projects-git-main-aug246s-projects.vercel.app",
-    "0a79-47-22-173-162.ngrok-free.app"
+    "0a79-47-22-173-162.ngrok-free.app",
+    
+    
 ]
 
 # Application definition
@@ -57,10 +61,10 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-SECURE_SSL_REDIRECT = True
+SECURE_SSL_REDIRECT = False
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')  
 
-CORS_ALLOW_ALL_ORIGINS = False
+#CORS_ALLOW_ALL_ORIGINS = False
 
 CORS_ALLOWED_ORIGINS = [
     "https://projects-six-taupe.vercel.app",
@@ -70,6 +74,7 @@ CORS_ALLOWED_ORIGINS = [
 ]
 
 CORS_ALLOW_CREDENTIALS = True
+CORS_ALLOW_ALL_ORIGINS = False
 
 CSRF_TRUSTED_ORIGINS = [
     "https://projects-six-taupe.vercel.app",

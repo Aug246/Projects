@@ -7,8 +7,7 @@ function App() {
     console.log("Initializing CSRF token.....");
     
     fetch("https://0a79-47-22-173-162.ngrok-free.app/login/health_check/", {
-      method: "GET",
-      credentials: "include", // Ensure credentials are sent with the request
+      method: "GET", // Ensure credentials are sent with the request
     })
     .then(response => {
       if (!response.ok) {

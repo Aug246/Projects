@@ -6,9 +6,16 @@ from django.middleware.csrf import get_token
 import json
 
 def health_check(request):
-    token = get_token(request)
-    response = JsonResponse({'status': 'OK'})
-    response.set_cookie('csrftoken', token, httponly=False, samesite='None', secure=False)
+    if request.method == 'GET':
+        token = get_token(request)
+        response = JsonResponse({'status': 'OK', 'csrftoken': token})  # Include CSRF token in response JSON
+        response.set_cookie(
+            'csrftoken',
+            token,
+            httponly=False,
+            samesite='None',
+            secure=True  # Set to True to allow cross-site requests
+        )
     return response
 
 
